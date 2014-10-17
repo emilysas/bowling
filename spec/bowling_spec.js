@@ -48,7 +48,7 @@ describe('Bowling Game', function() {
     it('should add bonus score of 10 plus next 2 rolls', function() {
       bowlStrike.call(game);
       multiRoll.call(game, 4, 2);
-      multiRoll.call(game, 0, 16);
+      multiRoll.call(game, 0, 15);
       expect(game.score()).toEqual(26);
     });
   });
@@ -68,9 +68,16 @@ describe('Bowling Game', function() {
       expect(game.score()).toEqual(20);
     });
 
-
-   
   });
+
+    describe('Bowling a perfect game', function() {
+
+      it('should have a score of 300 with 12 strikes', function() {
+        multiRoll.call(game, 10, 12);
+        expect(game.score()).toEqual(300);
+      });
+    });
+
 
 });
 
