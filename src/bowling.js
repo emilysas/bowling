@@ -1,3 +1,4 @@
+
 function Game() {
   this._rolls = Array.apply(null, Array(21)).map(function(num) { return 0; });
   this._current = 0;
@@ -56,6 +57,5 @@ multiRoll = function (pins, rolls) {
     for (var i = 0; i < rolls; i++) {
       this.roll(pins);
     }
-  };
-
+};
 
