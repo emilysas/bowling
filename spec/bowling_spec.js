@@ -48,7 +48,6 @@ describe('Bowling Game', function() {
     it('should add bonus score of 10 plus next 2 rolls', function() {
       bowlStrike.call(game);
       multiRoll.call(game, 4, 2);
-      multiRoll.call(game, 0, 15);
       expect(game.score()).toEqual(26);
     });
   });
@@ -64,10 +63,20 @@ describe('Bowling Game', function() {
     it('should add bonus score of 10 plus next roll', function() {
       bowlSpare.call(game)
       game.roll(5);
-      multiRoll.call(game, 0, 17);
       expect(game.score()).toEqual(20);
     });
 
+  });
+
+  describe('Final frame can have bonus roll', function() {
+
+    it('should give extra roll if spare is bowled', function() {
+      multiRoll.call(game, 4, 18);
+      bowlSpare.call(game);
+      expect(game.score()).toEqual(82);
+      game.roll(5);
+      expect(game.score()).toEqual(87);
+    });
   });
 
     describe('Bowling a perfect game', function() {
