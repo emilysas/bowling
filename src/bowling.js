@@ -12,17 +12,17 @@ Game.prototype.roll = function(pins) {
 Game.prototype.score = function() {
   var score = 0;
   var rolls_to_add = this._extraRoll() ? this._totalRolls + 1 : this._totalRolls;
-  for (var i = 0; i < rolls_to_add; i++) {
-    if (this._isStrike(i) && !this._finalFrame()) {
-      score += 10 + this._rolls[i+2] + this._rolls[i+1];
+  for (var roll = 0; roll < rolls_to_add; roll++) {
+    if (this._isStrike(roll) && !this._finalFrame()) {
+      score += this._addStrikeBonus(roll);
       rolls_to_add--;
     }
-    else if (this._isSpare(i) && !this._finalFrame()) {
-      score += 10 + this._rolls[i+2];
-      i++;
+    else if (this._isSpare(roll) && !this._finalFrame()) {
+      score += this._addSpareBonus(roll);
+      roll++;
     }
     else {
-      score += this._rolls[i];
+      score += this._rolls[roll];
     }
   }
   return score;
@@ -39,9 +39,17 @@ Game.prototype._isSpare = function(roll) {
   return false;
 };
 
+Game.prototype._addStrikeBonus = function(roll) {
+  return 10 + this._rolls[roll+1] + this._rolls[roll+2];
+};
+
+Game.prototype._addSpareBonus = function(roll) {
+  return 10 + this._rolls[roll+2];
+};
+
 Game.prototype._finalFrame = function () {
   return this._current > this._totalRolls - 3;
-}
+};
 
 Game.prototype._extraRoll = function () {
   return this._finalFrameTen() ? true : false;
@@ -52,10 +60,4 @@ Game.prototype._finalFrameTen = function() {
     this._isSpare(this._totalRolls - 2)) return true;
   return false;
 }; 
-
-multiRoll = function (pins, rolls) {
-    for (var i = 0; i < rolls; i++) {
-      this.roll(pins);
-    }
-};
 
