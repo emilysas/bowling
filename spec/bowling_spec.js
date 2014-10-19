@@ -77,6 +77,14 @@ describe('Bowling Game', function() {
       game.roll(5);
       expect(game.score()).toEqual(87);
     });
+
+    it("should allow 2 extra rolls if there is a strike", function() {
+      multiRoll.call(game, 4, 18);
+      bowlStrike.call(game);
+      game.roll(4);
+      game.roll(4);
+      expect(game.score()).toEqual(90);
+    });
   });
 
     describe('Bowling a perfect game', function() {

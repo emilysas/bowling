@@ -1,4 +1,3 @@
-
 function Game() {
   this._rolls = Array.apply(null, Array(21)).map(function(num) { return 0; });
   this._current = 0;
