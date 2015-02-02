@@ -28,8 +28,7 @@ Game.prototype.score = function() {
 };
 
 Game.prototype._isStrike = function(roll) {
-  if (this._rolls[roll] === 10)  return true;
-  return false;
+  return this._rolls[roll] === 10
 };
 
 Game.prototype._isSpare = function(roll) {
