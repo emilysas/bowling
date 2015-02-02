@@ -9,16 +9,12 @@ Game.prototype.roll = function(pins) {
 };
 
 Game.prototype.score = function() {
-  var score = 0;
-  var rolls_to_add = this._finalFrameTen() ? this._totalRolls + 1 : this._totalRolls;
+  var score = 0,
+      rolls_to_add = this._finalFrameTen() ? this._totalRolls + 1 : this._totalRolls;
   for (var roll = 0; roll < rolls_to_add; roll++) {
-    if (this._isStrike(roll) && !this._finalFrame()) {
+    if((this._isStrike(roll) || this._isSpare(roll))&& !this._finalFrame()){
       score += this._addBonus(roll);
-      rolls_to_add--;
-    }
-    else if (this._isSpare(roll) && !this._finalFrame()) {
-      score += this._addBonus(roll);
-      roll++;
+      this._isStrike(roll) ? rolls_to_add-- : roll++
     }
     else {
       score += this._rolls[roll];
