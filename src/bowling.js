@@ -10,7 +10,7 @@ Game.prototype.roll = function(pins) {
 
 Game.prototype.score = function() {
   var score = 0;
-  var rolls_to_add = this._extraRoll() ? this._totalRolls + 1 : this._totalRolls;
+  var rolls_to_add = this._finalFrameTen() ? this._totalRolls + 1 : this._totalRolls;
   for (var roll = 0; roll < rolls_to_add; roll++) {
     if (this._isStrike(roll) && !this._finalFrame()) {
       score += this._addBonus(roll);
@@ -42,10 +42,6 @@ Game.prototype._addBonus = function(roll) {
 
 Game.prototype._finalFrame = function () {
   return this._current > this._totalRolls - 3;
-};
-
-Game.prototype._extraRoll = function () {
-  return this._finalFrameTen() ? true : false;
 };
 
 Game.prototype._finalFrameTen = function() {
