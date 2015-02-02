@@ -49,8 +49,6 @@ Game.prototype._extraRoll = function () {
 };
 
 Game.prototype._finalFrameTen = function() {
-  if (this._isStrike(this._totalRolls - 2) || 
-    this._isSpare(this._totalRolls - 2)) return true;
-  return false;
+  return this._isStrike(this._totalRolls - 2) || this._isSpare(this._totalRolls - 2);
 }; 
 
