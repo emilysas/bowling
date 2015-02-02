@@ -13,11 +13,11 @@ Game.prototype.score = function() {
   var rolls_to_add = this._extraRoll() ? this._totalRolls + 1 : this._totalRolls;
   for (var roll = 0; roll < rolls_to_add; roll++) {
     if (this._isStrike(roll) && !this._finalFrame()) {
-      score += this._addStrikeBonus(roll);
+      score += this._addBonus(roll);
       rolls_to_add--;
     }
     else if (this._isSpare(roll) && !this._finalFrame()) {
-      score += this._addSpareBonus(roll);
+      score += this._addBonus(roll);
       roll++;
     }
     else {
@@ -35,13 +35,10 @@ Game.prototype._isSpare = function(roll) {
   return (this._rolls[roll] % 2 !== 0 || roll === 0) && (this._rolls[roll] + this._rolls[roll+1] === 10); 
 };
 
-Game.prototype._addStrikeBonus = function(roll) {
-  return 10 + this._rolls[roll+1] + this._rolls[roll+2];
-};
-
-Game.prototype._addSpareBonus = function(roll) {
-  return 10 + this._rolls[roll+2];
-};
+Game.prototype._addBonus = function(roll) {
+  var strike = this._isStrike(roll) ? this._rolls[roll+1] : 0;
+  return 10 + this._rolls[roll+2] + strike;
+}
 
 Game.prototype._finalFrame = function () {
   return this._current > this._totalRolls - 3;
