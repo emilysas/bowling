@@ -28,13 +28,11 @@ Game.prototype.score = function() {
 };
 
 Game.prototype._isStrike = function(roll) {
-  return this._rolls[roll] === 10
+  return this._rolls[roll] === 10;
 };
 
 Game.prototype._isSpare = function(roll) {
-  if ((this._rolls[roll] % 2 !== 0 || roll === 0) && 
-    (this._rolls[roll] + this._rolls[roll+1] === 10)) return true;
-  return false;
+  return (this._rolls[roll] % 2 !== 0 || roll === 0) && (this._rolls[roll] + this._rolls[roll+1] === 10); 
 };
 
 Game.prototype._addStrikeBonus = function(roll) {
